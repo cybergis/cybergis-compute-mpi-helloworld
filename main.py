@@ -20,7 +20,7 @@ if rank == 0:
    pp.pprint(environ_subset, width=1)
    
    #copy input file(s) to result_folder
-   shutil.copytree(environ_subset["data_folder"], environ_subset["result_folder"])
+   shutil.copytree(environ_subset["data_folder"], environ_subset["result_folder"], dirs_exist_ok=True)
    
 comm.Barrier()
 

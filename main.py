@@ -12,7 +12,7 @@ hostname = MPI.Get_processor_name()
 print("Hello World ! main.py {}/{}@{}".format(rank, size, hostname))
 
 if rank == 0:
-   pp.pprint(os.environ)
+   pp.pprint(dict(os.environ), width=1)
 comm.Barrier()
 
 

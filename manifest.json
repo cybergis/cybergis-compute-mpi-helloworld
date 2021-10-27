@@ -1,0 +1,10 @@
+{
+    "name": "MPI Hello World",
+    "container": "mpich",
+    "pre_processing_stage": "python setup.py",
+    "execution_stage": "python main.py",
+    "post_processing_stage": "python cleanup.py",
+    "slurm_ceiling": {
+        "walltime": "2:00"
+    }
+}

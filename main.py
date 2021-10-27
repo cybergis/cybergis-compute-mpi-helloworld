@@ -1,3 +1,5 @@
+# MPI-enabled
+
 import os
 import pprint as pp
 from distutils.dir_util import copy_tree

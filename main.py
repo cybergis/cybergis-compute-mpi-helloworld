@@ -1,6 +1,6 @@
 from mpi4py import MPI
 import os
-import pprint
+import pprint as pp
 
 # init mpi
 comm = MPI.COMM_WORLD
@@ -12,7 +12,7 @@ hostname = MPI.Get_processor_name()
 print("Hello World ! main.py {}/{}@{}".format(rank, size, hostname))
 
 if rank == 0:
-   pprint(os.environ)
+   pp.pprint(os.environ)
 comm.Barrier()
 
 

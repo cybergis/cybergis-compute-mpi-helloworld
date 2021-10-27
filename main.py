@@ -14,7 +14,7 @@ hostname = MPI.Get_processor_name()
 # all processes to print Hello World
 print("Hello World ! main.py {}/{}@{}".format(rank, size, hostname))
 
-# only rank 0 does something
+# rank 0 to do something
 if rank == 0:
    # print some environment variables
    my_environ_keys = ["data_folder", "executable_folder", "hpc", "job_id", "result_folder", "user_id", "SLURM_JOB_ID"]

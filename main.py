@@ -1,6 +1,6 @@
 import os
 import pprint as pp
-import shutil
+from distutils.dir_util import copy_tree
 from mpi4py import MPI
 
 # init mpi
@@ -19,8 +19,8 @@ if rank == 0:
    environ_subset = {key: os.environ.get(key, "NULL") for key in my_environ_keys}
    pp.pprint(environ_subset, width=1)
    
-   #copy input file(s) to result_folder
-   shutil.copytree(environ_subset["data_folder"], environ_subset["result_folder"], dirs_exist_ok=True)
+   #copy input file(s) to result_folder 
+   copy_tree(environ_subset["data_folder"], environ_subset["result_folder"])
    
 comm.Barrier()
 

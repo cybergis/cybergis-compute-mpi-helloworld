@@ -2,6 +2,7 @@
     "name": "MPI Hello World",
     "container": "mpich",
     "pre_processing_stage": "python setup.py",
+    "pre_processing_stage_in_raw_sbatch": ["line a", "line b"],
     "execution_stage": "python main.py",
     "post_processing_stage": "python cleanup.py",
     "slurm_ceiling": {

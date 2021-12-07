@@ -20,16 +20,16 @@
                 "step": 1
             },
             "memory_per_cpu": {
-                "max": 3,
-                "min": 1,
-                "default_value": 1,
-                "step": 1,
-                "unit": "GB"
+                "max": 2000,
+                "min": 500,
+                "default_value": 500,
+                "step": 500,
+                "unit": "MB"
             },
             "partition": {
                 "type": "string_option",
                 "options": ["node", "sesempi"],
-                "default_value": "node"
+                "default_value": "sesempi"
             },
             "num_of_node": {
                 "max": 4,

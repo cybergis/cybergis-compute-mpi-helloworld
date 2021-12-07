@@ -1,0 +1,81 @@
+FROM ubuntu:xenial
+
+####################################
+########## ROOT USER  ##############
+####################################
+USER root
+
+####################################
+RUN apt-get update \
+	&& apt-get install -yq --no-install-recommends \
+	   software-properties-common \
+           build-essential \
+           gfortran \
+           g++ \
+           gcc \
+           wget \
+           git \
+        && apt upgrade -y
+
+RUN apt-get update \
+    && apt-get install -yq --no-install-recommends \
+    bash-completion \
+    netcat \
+    iputils-ping \
+    nano \
+    screen \
+    openssh-client \
+    zip \
+    unzip \
+    nco \
+    curl \
+    aria2 \
+    rsync \
+    lsb-release \
+    && apt-get clean
+
+
+###################################
+## create docker user
+RUN useradd -ms /bin/bash docker
+RUN usermod -aG sudo docker
+RUN chmod -R 777 /home/docker/
+
+###################################
+# Python 3.7 (Install py37 conda to avoid mpi4py issue, see below)
+RUN wget https://repo.continuum.io/miniconda/Miniconda3-py37_4.8.3-Linux-x86_64.sh \
+    && bash Miniconda3-py37_4.8.3-Linux-x86_64.sh -b -p /opt/miniconda3 \
+    && rm Miniconda3-py37_4.8.3-Linux-x86_64.sh \
+    && chown -R docker:docker /opt/miniconda3 
+
+#Set environment variables
+ENV PATH="/opt/miniconda3/bin:${PATH}"
+
+###################################
+
+## Possible Error on keeling when sbatch or srun submits a mpi4py-enabled python job in singularity container:
+## Example using sbatch
+## #SBATCH --ntasks=4
+## srun --mpi=pmi2 singularity exec PATH_TO_SINGULARITY_IMAGE python MPI4PY_ENABLED_PYTHON_SCRIPT
+## Example outside sbatch
+## srun -n 4 --mpi=pmi2 singularity exec PATH_TO_SINGULARITY_IMAGE python MPI4PY_ENABLED_PYTHON_SCRIPT
+## An error occurred in MPI_Init_thread on a NULL communicator MPI_ERRORS_ARE_FATAL 
+## (processes in this communicator will now abort, and potentially your MPI job)
+## Workaround: install specific "build" of MPI4py for Python3.7 on conda-forge: the one uses MPICH (not OpenMPI) as dependency
+## How to find specific MPI4py "build" on conda-forge repo
+## Goto https://anaconda.org/conda-forge/mpi4py/files
+## Search for "linux-aarch64/mpi4py-3.0.3-py37"
+## Click "!" icon and check "depends" field:  "mpich" (not "openmpi")
+## conda instal -c conda-forge mpi4py=<VERSION>=<BUILD_ID>
+RUN /opt/miniconda3/bin/conda install -c conda-forge mpich=3.4.2=h846660c_100 mpi4py=3.0.3=py37hb7498f7_7 gxx_linux-64
+
+RUN mkdir -p /workspace && chmod -R 777 /workspace
+RUN chmod -R 777 /home/docker
+RUN chmod -R 777 /opt/miniconda3
+
+RUN mkdir -p /home/jovyan/work/workspace
+RUN chmod -R 777 /home
+
+
+USER docker
+WORKDIR /home/docker

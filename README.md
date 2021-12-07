@@ -31,5 +31,5 @@ Will be called in a single process for preprocessing data after parallel model r
 
 ## "images" folder
 
-This folder contains the dockerfile that builds the summa environment image and a singlarity DEF script that importes the docker image and converts to singularity container.
+This folder contains the dockerfile that builds the mpi environment image and a singlarity DEF script that importes the docker image and converts to singularity container.
 

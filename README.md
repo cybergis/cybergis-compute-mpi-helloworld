@@ -1,4 +1,4 @@
-# A MPI-based HelloWorld implementation in CyberGIS-Compute V2
+# A MPI-based HelloWorld toy model for CyberGIS-Compute V2
 
 This repo implemented a MPI-based HelloWorld toy model for CyberGIS-Compute V2. Model developers who may want to contribute their own models to CyberGIS-Compute can use this as an example.
 

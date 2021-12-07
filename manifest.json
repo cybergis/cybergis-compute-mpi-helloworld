@@ -7,7 +7,7 @@
     "slurm_input_rules": {
    
            "time": {
-                "max": 10,
+                "max": 3,
                 "min": 1,
                 "default_value": 1,
                 "step": 1,
@@ -54,5 +54,6 @@
             "options": ["foo", "bar"],
             "default_value": "foo"
         }
-    }
+    },
+    "default_hpc": "keeling_community"
 }

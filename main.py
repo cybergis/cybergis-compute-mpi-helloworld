@@ -5,10 +5,13 @@ import pprint as pp
 from distutils.dir_util import copy_tree
 from mpi4py import MPI
 
-# init mpi
+# init mpi env
 comm = MPI.COMM_WORLD
+# id/rank in mpi env
 rank = comm.Get_rank()
+# size of the mpi cluster
 size = comm.Get_size()
+# processor name
 hostname = MPI.Get_processor_name()
 
 # all processes to print Hello World

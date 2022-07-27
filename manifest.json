@@ -44,5 +44,6 @@
             "default_value": "foo"
         }
     },
+    "supported_hpc": ["keeling_community", "expanse_community", "anvil_community"],
     "default_hpc": "keeling_community"
 }

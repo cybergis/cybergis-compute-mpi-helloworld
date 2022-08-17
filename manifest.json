@@ -3,7 +3,7 @@
     "container": "mpich",
     "pre_processing_stage": "python setup.py",
     "execution_stage": "python main.py",
-    "post_processing_stage": "python cleanup.py",
+    "post_processing_stage": "./cleanup.sh",
     "slurm_input_rules": {
    
            "time": {
